@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as React from 'react';
-import { View, TouchableOpacity, Text, SafeAreaView, Image } from 'react-native';
+import { View, TouchableOpacity, Text, SafeAreaView, Image,StyleSheet } from 'react-native';
 import { Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { BASE_URL } from '../constants/base_URL';
@@ -9,6 +9,8 @@ import { setlastName, setisConnect, setfirstName, setEmail } from '../../../redu
 
 
 export default function Feed({ navigation }) {
+
+  //Variables objet state
   const { isconnect } = useSelector(state => state.userReducer);
   const dispatch = useDispatch();
   const [IsConnexion, changeIsConnexion] = React.useState(true);
@@ -20,8 +22,10 @@ export default function Feed({ navigation }) {
   const [textPasswordConnexion, onChangePasswordConnexion] = React.useState(null);
   const [data, onChangeData] = React.useState(null);
 
+
+  // Requete Back
   const getSubscribe = () => {
-    axios.post(`${BASE_URL}/posts/inscription`, {
+    axios.post(`${BASE_URL}/product/inscription`, {
       "firstName": textFirstName,
       "lastName": textName,
       "email": textEmail,
@@ -44,7 +48,7 @@ export default function Feed({ navigation }) {
     });
   }
   const getConnexion = () => {
-    axios.post(`${BASE_URL}/posts/connexion`, {
+    axios.post(`${BASE_URL}/product/connexion`, {
       "email": textEmail,
       "password": textPasswordConnexion,
     }).then((response) => {
@@ -63,18 +67,18 @@ export default function Feed({ navigation }) {
 
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: "center", backgroundColor: "#e8f4c7" }}>
+    <SafeAreaView style={styles.containerConnexion}>
 
       {isconnect &&
-        <View style={{ height: "100%", alignItems: "center", justifyContent: "center" }}>
-          <TouchableOpacity style={{ flexDirection: "row", position: "absolute", top: 10, marginLeft: 10, left: 10 }} onPress={() => navigation.navigate('Home')}>
+        <View style={styles.containerAuth}>
+          <TouchableOpacity style={styles.containerTouchAuth} onPress={() => navigation.navigate('Home')}>
             <Image
               source={require('../assets/icons/MenuIcon.png')}
               style={{ width: 24, height: 24 }}
             />
-            <Text style={{ fontWeight: "bold", marginLeft: 8 }}>Retour</Text>
+            <Text style={styles.labelback}>Retour</Text>
           </TouchableOpacity>
-          <Text style={{ marginLeft: 10, fontSize: 35, marginVertical: 10, textAlign: "center", fontWeight: "bold", color: '#81c684' }}>Vous êtes authentifiez !</Text>
+          <Text style={styles.labelAuth}>Vous êtes authentifiez !</Text>
           <Image
             source={require('../assets/LogoConnexion.png')}
             style={{ width: 300, height: 280 }}
@@ -83,25 +87,25 @@ export default function Feed({ navigation }) {
       }
 
       {!isconnect && <ScrollView>
-        <TouchableOpacity style={{ flexDirection: "row", marginTop: 40, marginLeft: 10 }} onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity style={styles.containerBack} onPress={() => navigation.navigate('Home')}>
           <Image
             source={require('../assets/icons/MenuIcon.png')}
             style={{ width: 24, height: 24 }}
           />
-          <Text style={{ fontWeight: "bold", marginLeft: 8 }}>Retour</Text>
+          <Text style={styles.labelback}>Retour</Text>
 
         </TouchableOpacity>
-        {IsConnexion && <Text style={{ marginLeft: 10, fontSize: 35, marginVertical: 10, textAlign: "center", fontWeight: "bold", color: '#81c684' }}>Connectez - vous</Text>}
-        {!IsConnexion && <Text style={{ marginLeft: 10, fontSize: 35, marginVertical: 10, textAlign: "center", fontWeight: "bold", color: '#81c684' }}>Inscrivez - vous</Text>}
+        {IsConnexion && <Text style={styles.labelConnect}>Connectez - vous</Text>}
+        {!IsConnexion && <Text style={styles.labelConnect}>Inscrivez - vous</Text>}
         <View style={{ alignItems: "center", marginBottom: 20 }}>
           {IsConnexion && <Image
             source={require('../assets/LogoConnexion.png')}
             style={{ width: 300, height: 280 }}
           />}
           <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity onPress={() => { changeIsConnexion(true) }} ><Text style={{ marginLeft: 10, fontSize: 25, marginVertical: 10, textDecorationLine: IsConnexion ? 'underline' : 'none', textDecorationStyle: 'solid' }}>CONNEXION</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => { changeIsConnexion(true) }} ><Text style={[styles.titleConnect,{textDecorationLine: IsConnexion ? 'underline' : 'none'}]}>CONNEXION</Text></TouchableOpacity>
             <Text style={{ marginLeft: 10, fontSize: 25, marginVertical: 10 }}> | </Text>
-            <TouchableOpacity onPress={() => { changeIsConnexion(false) }}><Text style={{ marginLeft: 10, fontSize: 25, marginVertical: 10, textDecorationLine: IsConnexion ? 'none' : 'underline', textDecorationStyle: 'solid' }}>INSCRIPTION</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => { changeIsConnexion(false) }}><Text style={[styles.titleConnect,{textDecorationLine: IsConnexion ? 'none' : 'underline'}]}>INSCRIPTION</Text></TouchableOpacity>
           </View>
         </View>
         {IsConnexion &&
@@ -112,12 +116,12 @@ export default function Feed({ navigation }) {
                 <Text key={id} style={{ color: "red", textAlign: "center" }}>{`${response}`}</Text>
               )}
             </View>}
-            <Text style={{ marginLeft: 10 }}>Utilisateur</Text>
+            <Text style={styles.input}>Utilisateur</Text>
             <Input
               onChangeText={onChangeTextEmail}
               value={textEmail}
             />
-            <Text style={{ marginLeft: 10 }}>Mot de passe</Text>
+            <Text style={styles.input}>Mot de passe</Text>
             <Input
               onChangeText={onChangePasswordConnexion}
               value={textPasswordConnexion}
@@ -135,28 +139,28 @@ export default function Feed({ navigation }) {
               )}
             </View>}
 
-            <Text style={{ marginLeft: 10 }}>Nom</Text>
+            <Text style={styles.input}>Nom</Text>
             <Input
               onChangeText={onChangeTextName}
               value={textName}
             />
-            <Text style={{ marginLeft: 10 }}>Prenom</Text>
+            <Text style={styles.input}>Prenom</Text>
             <Input
               onChangeText={onChangeTextFirstName}
               value={textFirstName}
             />
-            <Text style={{ marginLeft: 10 }}>Email</Text>
+            <Text style={styles.input}>Email</Text>
             <Input
               onChangeText={onChangeTextEmail}
               value={textEmail}
             />
-            <Text style={{ marginLeft: 10 }}>Mot de passe</Text>
+            <Text style={styles.input}>Mot de passe</Text>
             <Input
               onChangeText={onChangeTextPassword}
               value={textPassword}
               secureTextEntry={true}
             />
-            <Text style={{ marginLeft: 10 }}>Confirme ton mot de passe</Text>
+            <Text style={styles.input}>Confirme ton mot de passe</Text>
             <Input
               onChangeText={onChangeTextConfirmPassword}
               value={textConfirmPassword}
@@ -164,9 +168,82 @@ export default function Feed({ navigation }) {
             />
           </View>
         }
-        {IsConnexion && <TouchableOpacity style={{ marginHorizontal: 30, backgroundColor: '#81c684', paddingHorizontal: 20, borderRadius: 100, paddingVertical: 20 }} onPress={() => getConnexion()}><Text style={{ color: "white", fontWeight: "bold", fontSize: 24, textAlign: "center" }}>Connexion</Text></TouchableOpacity>}
-        {!IsConnexion && <TouchableOpacity style={{ marginHorizontal: 30, backgroundColor: '#81c684', paddingHorizontal: 20, borderRadius: 100, paddingVertical: 20 }} onPress={() => getSubscribe()}><Text style={{ color: "white", fontWeight: "bold", fontSize: 24, textAlign: "center" }}>Inscription</Text></TouchableOpacity>}
+        {IsConnexion && <TouchableOpacity style={styles.containerTouchConnect} onPress={() => getConnexion()}><Text style={styles.textLabel}>Connexion</Text></TouchableOpacity>}
+        {!IsConnexion && <TouchableOpacity style={styles.containerTouchConnect} onPress={() => getSubscribe()}><Text style={styles.textLabel}>Inscription</Text></TouchableOpacity>}
       </ScrollView>}
     </SafeAreaView>
   );
 }
+
+
+const styles = StyleSheet.create({
+
+  containerConnexion:{
+    flex: 1, 
+    justifyContent: "center", 
+    backgroundColor: "#e8f4c7"
+  },
+  containerAuth:{
+    height: "100%", 
+    alignItems: "center", 
+    justifyContent: "center"
+  },
+  containerTouchAuth:{
+    flexDirection: "row", 
+    position: "absolute", 
+    top: 10, 
+    marginLeft: 10, 
+    left: 10
+  },
+  labelback:{
+    fontWeight: "bold", 
+    marginLeft: 8
+  },
+  labelAuth:{
+    marginLeft: 10, 
+    fontSize: 35, 
+    marginVertical: 10, 
+    textAlign: "center", 
+    fontWeight: "bold", 
+    color: '#81c684' 
+  },
+  containerBack:{
+    flexDirection: "row", 
+    marginTop: 40, 
+    marginLeft: 10
+  },
+  labelConnect:{
+    marginLeft: 10, 
+    fontSize: 35, 
+    marginVertical: 10, 
+    textAlign: "center", 
+    fontWeight: "bold", 
+    color: '#81c684'
+  },
+  titleConnect:{
+    marginLeft: 10, 
+    fontSize: 25, 
+    marginVertical: 10,  
+    textDecorationStyle: 'solid'
+  },
+  input:{
+    marginLeft: 10
+    
+  },
+  containerTouchConnect:{
+    marginHorizontal: 30, 
+    backgroundColor: '#81c684', 
+    paddingHorizontal: 20, 
+    borderRadius: 100, 
+    paddingVertical: 20    
+  },
+  textLabel:{
+
+    color: "white", 
+    fontWeight: "bold", 
+    fontSize: 24, 
+    textAlign: "center" 
+
+  }
+
+})

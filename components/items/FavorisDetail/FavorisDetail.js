@@ -15,7 +15,7 @@ export default function FavorisDetail({ navigation }) {
 
   const checkFavoris = (id) => {
     setloading(true);
-    axios.get(`${BASE_URL}/posts/favoris`).then((response) => {
+    axios.get(`${BASE_URL}/product/favoris`).then((response) => {
       setloading(false);
       if (response.data == "Problème d'authentification") {
         console.log(response.data)
@@ -38,7 +38,7 @@ export default function FavorisDetail({ navigation }) {
   const onclickItem = (id) => {
 
     if (id != null) {
-      axios.get(`${BASE_URL}/posts/favoris/id/${id}`).then((response) => {
+      axios.get(`${BASE_URL}/product/favoris/id/${id}`).then((response) => {
         setItemClick(response.data)
         if (response.data != null) {
           navigation.navigate("ProductDetail", { data: response.data })

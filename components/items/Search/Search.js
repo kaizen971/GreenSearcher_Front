@@ -13,7 +13,7 @@ export default function Search({ navigation }) {
       const getFoodDetail = (text) => {
       setloading(true);
         if(text != ""){
-          axios.get(`${BASE_URL}/posts/search/${text}`).then((response) => {
+          axios.get(`${BASE_URL}/product/search/${text}`).then((response) => {
             setloading(false);
             setData(response.data)
           });

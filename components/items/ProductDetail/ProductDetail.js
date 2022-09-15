@@ -64,7 +64,7 @@ export default function ProductDetail({ navigation, route }) {
 
     const checkFavoris = (id) => {
         setloading(true);
-        axios.get(`${BASE_URL}/posts/checkfavoris/${id}`).then((response) => {
+        axios.get(`${BASE_URL}/product/checkfavoris/${id}`).then((response) => {
             setloading(false);
             setisFavoris(response.data)
             console.log(isFavoris);
@@ -123,14 +123,14 @@ export default function ProductDetail({ navigation, route }) {
         // Filter expenses with "Confirmed" status
         setloading(true);
         if (isFavoris) {
-            axios.post(`${BASE_URL}/posts/favoris/delete/${id}`).then((response) => {
+            axios.post(`${BASE_URL}/product/favoris/delete/${id}`).then((response) => {
                 setloading(false);
                 if (response.data == "Favoris delete") {
                     setisFavoris(false);
                 }
             });
         } else {
-            axios.post(`${BASE_URL}/posts/favoris/update/${id}`).then((response) => {
+            axios.post(`${BASE_URL}/product/favoris/update/${id}`).then((response) => {
                 setloading(false);
                 if (response.data == "Favoris update") {
                     setisFavoris(true);
