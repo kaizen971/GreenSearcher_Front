@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Button, View, TouchableOpacity, Text, Image, StyleSheet, FlatList } from 'react-native';
+import React, { useState, useEffect, Fragment } from 'react';
+import { Button, View, TouchableOpacity, Text, Image, StyleSheet, FlatList,ScrollView,SafeAreaView } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import { VictoryPie } from 'victory-native';
 import { Svg } from 'react-native-svg';
@@ -7,8 +7,7 @@ import { COLORS, FONTS, SIZES, icons, images } from '../constants';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { BASE_URL } from '../constants/base_URL';
-import scaleScore from '../../../utils';
-
+import {scaleScore,scaleResultat} from '../../../utils';
 
 export default function ProductDetail({ navigation, route }) {
     const data = route.params.data
@@ -228,8 +227,10 @@ export default function ProductDetail({ navigation, route }) {
                     />
                 </Svg>
                 <View style={{ position: 'absolute' }}>
-                    <Text style={{ ...FONTS.h1, textAlign: 'center', color: scaleScore(data.impact_environnemental['Score unique EF']['synthese']) }}>{Math.round(data.impact_environnemental['Score unique EF']['synthese'] * 100) / 100}</Text>
+                    <Text style={{ ...FONTS.h1, textAlign: 'center', color: scaleScore(data.impact_environnemental['Score unique EF']['synthese'])}}>{Math.round(data.impact_environnemental['Score unique EF']['synthese'] * 100) / 100}</Text>
                     <Text style={{ ...FONTS.body3, textAlign: 'center' }}>{data.impact_environnemental['Score unique EF']['unite']}</Text>
+                    {scaleResultat(data.impact_environnemental['Score unique EF']['synthese'])}
+                    
                 </View>
             </View>
 
@@ -237,8 +238,8 @@ export default function ProductDetail({ navigation, route }) {
     }
 
     return (
-
-        <View>
+        <SafeAreaView style={{flex:1}}>
+            <ScrollView nestedScrollEnabled={true} style={{ width: "100%" }}>
             <View style={{flexDirection:"row",justifyContent:"space-between"}}>
             <TouchableOpacity style={{ flexDirection: "row", marginTop: 40 }} onPress={() => navigation.navigate('Feed')}>
                 <Image
@@ -269,8 +270,8 @@ export default function ProductDetail({ navigation, route }) {
                 <View><Text style={{ textAlign: "center", marginTop: 5, fontSize: 18, marginBottom: -10 }}>{`Impact environnemental`}</Text></View>
                 {renderExpenseSummary()}
             </View>}
-        </View>
-
+            </ScrollView>
+            </SafeAreaView>
     )
 }
 

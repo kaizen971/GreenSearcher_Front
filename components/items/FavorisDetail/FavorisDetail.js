@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, View, TouchableOpacity, Text, ScrollView, SafeAreaView, StyleSheet, TextInput, Image } from 'react-native';
+import { Button, View, TouchableOpacity,ImageBackground, Text, ScrollView, SafeAreaView, StyleSheet, TextInput, Image } from 'react-native';
 import axios from 'axios';
 import { BASE_URL } from '../constants/base_URL.js';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-native-three-dots-loader'
-import scaleScore from '../../../utils.js';
+import {scaleScore} from '../../../utils.js';
+import image from "../assets/bg.png"
 
 
 export default function FavorisDetail({ navigation }) {
@@ -51,6 +52,14 @@ export default function FavorisDetail({ navigation }) {
   }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <ImageBackground source={image} resizeMode="cover" style={{flex: 1,justifyContent: "center"}}>
+      <TouchableOpacity style={{flexDirection:"row",marginTop:20,marginLeft:10}} onPress={() => navigation.navigate('Feed')}>
+      <Image 
+        source={require('../assets/icons/MenuIcon.png')}  
+        style={{width: 24, height: 24 }}
+      />
+      <Text style={{fontWeight:"bold",marginLeft:8}}>Retour</Text>
+      </TouchableOpacity>
       <ScrollView>
         {!loading ?
           <View>
@@ -61,14 +70,14 @@ export default function FavorisDetail({ navigation }) {
 
                   <TouchableOpacity key={index} style={{ flexDirection: 'row', justifyContent: "space-around", borderWidth: 1, marginHorizontal: 15, marginVertical: 10, borderRadius: 20, padding: 10 }} onPress={() => onclickItem(response.id)}>
                     <Text style={{ flex: 0.8, fontSize: 20 }}>{response.nom}</Text>
-                    <Text style={{ fontSize: 16, color: scaleScore(response.scoreEF.synthese) }}>{Math.round((response.scoreEF.synthese) * 100) / 100}</Text>
+                    <Text style={{ fontSize: 16, color: scaleScore(response.scoreEF.synthese) }}>{Math.round((response.scoreEF["synthese"]) * 100) / 100}</Text>
                   </TouchableOpacity>
 
 
                 )
               })
             }
-            {data == null && <View><Text style={{textAlign:"center"}}>Pas de favoris , ajoutez le dans la partie Recherche ou Authentifiez vous si vous ne l'êtes pas</Text></View>}
+            {data == null && <View><Text style={{textAlign:"center",marginTop:40,fontSize: 16}}>Pas de favoris , ajoutez le dans la partie Recherche ou Authentifiez vous si vous ne l'êtes pas</Text></View>}
 
 
           </View>
@@ -77,6 +86,7 @@ export default function FavorisDetail({ navigation }) {
 
           <Loader />}
       </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 }

@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { Store } from './redux/store';
 import FavorisDetail from './components/items/FavorisDetail/FavorisDetail.js';
 import InfoDetail from './components/items/Infos/InfosDetail.js';
-
+import ScanFood from './components/items/ScanFood/ScanFood.js';
 const Stack = createNativeStackNavigator();
 
 function MyStack() {
@@ -33,6 +33,8 @@ function MyStack() {
       <Stack.Screen name="FavorisDetail" component={FavorisDetail} />
       {/* Ecran d'information sur l'application*/}
       <Stack.Screen name="Infos" component={InfoDetail} />
+      <Stack.Screen name="ScanFood" component={ScanFood} />
+
     </Stack.Navigator>
     </Provider>
 

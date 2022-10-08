@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Button, View, TouchableOpacity, Text, ScrollView, SafeAreaView, Image, StyleSheet } from 'react-native';
+import { Button, ImageBackground, View, TouchableOpacity, Text, ScrollView, SafeAreaView, Image, StyleSheet } from 'react-native';
 import { Card } from 'react-native-shadow-cards';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setlastName, setisConnect, setfirstName, setEmail } from '../../../redux/action';
 import { BASE_URL } from '../constants/base_URL';
-
+import image from "../assets/bg.png"
 
 export default function Feed({ navigation }) {
   const { isconnect, firstname, lastname, email } = useSelector(state => state.userReducer);
@@ -19,7 +19,9 @@ export default function Feed({ navigation }) {
   }
   return (
     <SafeAreaView style={styles.containerFeed}>
+      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
       <ScrollView style={styles.scrollView}>
+
         <View style={styles.viewBtn}>
           <TouchableOpacity style={styles.touchGoHome} onPress={() => navigation.navigate('Home')}>
             <Image
@@ -40,15 +42,15 @@ export default function Feed({ navigation }) {
             />
           </View>
           {isconnect ? <View style={{ alignSelf: "center" }}>
-            <Text>Hi 👋,</Text>
-            <Text>{`${firstname} ${lastname}`}</Text>
-            <Text>{`${email}`}</Text>
+            <Text style={{color:'gray'}}>Salut 👋,</Text>
+            <Text style={{color:'gray'}}>{`${firstname} ${lastname}`}</Text>
+            <Text style={{color:'gray'}}>{`${email}`}</Text>
           </View>
             :
             <TouchableOpacity style={{ alignSelf: "center" }} onPress={() => navigation.navigate('Connexion')}>
-              <Text>Hi 👋,</Text>
-              <Text style={{ width: 200 }}>Vous n'êtes pas encore connecté</Text>
-              <Text style={{ width: 200, fontWeight: "bold", marginTop: 10 }}>Cliquez pour vous connecter</Text>
+              <Text style={{color:"gray"}}>Salut 👋,</Text>
+              <Text style={{ width: 200,color:"gray" }}>Vous n'êtes pas encore connecté</Text>
+              <Text style={{ width: 200, fontWeight: "bold", marginTop: 10,color:"gray" }}>Cliquez pour vous connecter</Text>
             </TouchableOpacity>
           }
 
@@ -59,35 +61,50 @@ export default function Feed({ navigation }) {
             <TouchableOpacity onPress={() => navigation.navigate('Search')}>
               <Image
                 source={require('../assets/plat1.png')}
-                style={{ width: 100, height: 100, position: "absolute", bottom: -40 }}
+                style={{ width: 100, height: 100, position: "absolute", bottom: -60,right:-40 }}
               />
-              <Text style={styles.titleBtn}>Recherche tes plats !</Text>
+              <Text style={[styles.titleBtn,{color:"gray"}]}>Recherche l'impact environnemental de tes aliments !</Text>
             </TouchableOpacity>
           </Card>
           <Card style={styles.btnFeed}>
             <TouchableOpacity onPress={() => navigation.navigate('FavorisDetail')}>
               <Image
                 source={require('../assets/plat2.png')}
-                style={styles.imagestyle}
+                style={{width: 80, height: 70, position: "absolute", bottom: -60,right:-50  }}
               />
-              <Text style={styles.titleBtn}>Tes plats favoris !</Text>
+              <Text style={[styles.titleBtn,{color:"gray"}]}>Tes plats favoris !</Text>
               <View>
               </View>
             </TouchableOpacity>
           </Card>
         </View>
+        <View style={{ flexDirection: "row", marginTop: 20, marginBottom: 30 }}>
         <Card style={styles.btnFeed}>
-          <TouchableOpacity onPress={() => navigation.navigate('Infos')}>
-            <Image
-              source={require('../assets/plat2.png')}
-              style={styles.imagestyle}
+          <Image
+              source={require('../assets/plat4.png')}
+              style={{width: 75, height: 75, position: "absolute", bottom: -30,right:-25  }}
             />
-            <Text style={styles.titleBtn}>En savoir sur l'application</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('ScanFood')}>
+            <Text style={[styles.titleBtn,{color:"gray"}]}>Scanne ton produit</Text>
             <View>
             </View>
           </TouchableOpacity>
         </Card>
+        <Card style={styles.btnFeed}>
+          <TouchableOpacity onPress={() => navigation.navigate('Infos')}>
+            <Image
+              source={require('../assets/plat3.png')}
+              style={{width: 75, height: 75, position: "absolute", bottom: -60,right:-50  }}
+            />
+            <Text style={[styles.titleBtn,{color:"gray"}]}>En savoir plus sur l'application</Text>
+            <View>
+            </View>
+          </TouchableOpacity>
+        </Card>
+        </View>
       </ScrollView>
+      </ImageBackground>
+
     </SafeAreaView>
   );
 }
@@ -95,11 +112,15 @@ export default function Feed({ navigation }) {
 const styles = StyleSheet.create({
 
   containerFeed: {
-    flex: 1
+    flex: 1,
+    backgroundColor:'white'
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center"
   },
   scrollView: {
     marginHorizontal: 8,
-    backgroundColor: "white"
   },
   viewBtn: {
     flexDirection: "row",

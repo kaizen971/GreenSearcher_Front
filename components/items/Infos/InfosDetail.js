@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button, View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image } from 'react-native';
+import { Button, View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image,ImageBackground } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import image from "../assets/bg.png"
 
 
 
@@ -11,6 +12,7 @@ export default function InfoDetail({ navigation }) {
 
   return (
     <SafeAreaView style={styles.containerInfo}>
+      <ImageBackground source={image} resizeMode="cover" style={{flex: 1}}>
       <View>
       <TouchableOpacity style={styles.touchGoFeed} onPress={() => navigation.navigate('Feed')}>
       <Image 
@@ -29,6 +31,7 @@ export default function InfoDetail({ navigation }) {
         <Text style={{color:'#E72D19',fontSize:20}}>{`1.5-<3: Mauvais`}</Text>
         </View>
       </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 }

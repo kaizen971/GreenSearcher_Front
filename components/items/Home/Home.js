@@ -19,7 +19,7 @@ export default function HomeScreen({ navigation }) {
         {!isconnect &&<TouchableOpacity style={styles.containerTouchBtn} onPress={() => navigation.navigate('Connexion')}><Text style={styles.textBtn}>Connexion/Inscription</Text></TouchableOpacity>}
         {isconnect &&<TouchableOpacity style={styles.containerTouchBtn} onPress={() => navigation.navigate('Feed')}><Text style={styles.textBtn}>Ouvrir le menu</Text></TouchableOpacity>}
         </View>
-        <TouchableOpacity style={styles.containerSkip} onPress={() => navigation.navigate('Feed')}><Text style={styles.skipLabel}>Skip All</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.containerSkip} onPress={() => navigation.navigate('Feed')}><Text style={styles.skipLabel}>Passer l'Inscription</Text></TouchableOpacity>
       </View>
     );
   }
@@ -60,7 +60,8 @@ export default function HomeScreen({ navigation }) {
     containerSkip:{
       justifyContent:"center", 
       alignItems:"center",
-      marginTop:30
+      marginTop:30,
+      color:"black"
     },
     skipLabel:{
       fontSize:20,

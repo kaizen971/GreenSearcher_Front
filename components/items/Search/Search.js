@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Button, View,TouchableOpacity,Text,ScrollView,SafeAreaView ,StyleSheet, TextInput,Image} from 'react-native';
+import { Button, ImageBackground, View,TouchableOpacity,Text,ScrollView,SafeAreaView ,StyleSheet, TextInput,Image} from 'react-native';
 import axios from 'axios';
 import Icon from "react-native-vector-icons/Ionicons";
 import Loader from 'react-native-three-dots-loader'
 import { BASE_URL } from '../constants/base_URL.js';
+import image from "../assets/bg.png"
 
 export default function Search({ navigation }) {
     const [text, onChangeText] = React.useState("");
@@ -22,9 +23,13 @@ export default function Search({ navigation }) {
           setData(null)
         }
       }
+      const onchangeInput = (text) => {
+           onChangeText(text);
+      }
       return (
-      <SafeAreaView style={{flex:1,backgroundColor:'white'}}>
-      <ScrollView>
+      <SafeAreaView style={{flex:1}}>
+      <ImageBackground source={image} resizeMode="cover" style={{flex: 1,justifyContent: "center"}}>
+      <ScrollView nestedScrollEnabled={true} style={{ width: "100%" }}>
       <TouchableOpacity style={{flexDirection:"row",marginTop:20,marginLeft:10}} onPress={() => navigation.navigate('Feed')}>
       <Image 
         source={require('../assets/icons/MenuIcon.png')}  
@@ -33,19 +38,21 @@ export default function Search({ navigation }) {
       <Text style={{fontWeight:"bold",marginLeft:8}}>Retour</Text>
       </TouchableOpacity>
       <View style={{flex:1,flexDirection:"column",marginTop:20}}>
-      <View style={{flex:0.75,flexDirection:"row",alignItems:"center",justifyContent:"center",marginHorizontal:10}}>
+      <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"center",marginHorizontal:10}}>
       <TextInput
         style={styles.input}
-        onChangeText={text => {onChangeText(text)}}
-        clearTextOnFocus={true}
+        onChangeText={text => {onchangeInput(text)}}
         value={text}
-        placeholder={"Rechercher"}
+        clearButtonMode="always"
+        autoFocus={true}
+        placeholder={"Rechercher un plat ici"}
       />
-      <TouchableOpacity onPress={()=>{getFoodDetail(text)}}>
+      <TouchableOpacity style={{borderWidth:1,justifyContent:"center",alignContent:"center",alignItems:"center", backgroundColor:"white",borderRadius:5,padding:5,flexDirection:"row"}} onPress={()=>{getFoodDetail(text)}}>
+       <Text style={{color:"black",marginRight:5}}>Rechercher</Text>
        <Icon
             name="md-search"
             color="black"
-            size={30}
+            size={15}
             />
       </TouchableOpacity>
       </View>
@@ -62,9 +69,12 @@ export default function Search({ navigation }) {
         </TouchableOpacity>
       )) } 
       {loading ==  true &&<Loader/>}
+      {loading ==  false && data !=null && data.length == 0 &&<View><Text style={{fontSize:20}}>Aucun résultat trouvé</Text></View>}
+
       </View>
       </View>
       </ScrollView>
+      </ImageBackground>
       </SafeAreaView>
     );
   }
@@ -78,6 +88,7 @@ export default function Search({ navigation }) {
       margin: 12,
       padding: 10,
       borderRadius:80,
-      backgroundColor:"#eee"
+      backgroundColor:"#eee",
+      borderWidth:1
     },
   });
