@@ -10,6 +10,7 @@ import sagas from './sagas';
 const config = {
   key: 'root',
   storage: AsyncStorage,
+  blacklist: ["SearchBarReducer"],
   debug: true, //to get useful logging
 };
 

@@ -11,28 +11,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { connexionOn } from '../actions.js';
 
 export default function Search({ navigation }) {
-  const [text, onChangeText] = React.useState("");
-  const [data, setData] = React.useState(null);
-  const [loading, setloading] = React.useState(false);
+
   const dispatch = useDispatch()
   const getFoodDetail = (text) => {
-    setloading(true);
     if (text != "") {
       axios.get(`${BASE_URL}/product/search/${text}`).then((response) => {
-        setloading(false);
-        setData(response.data)
       });
     }
     else {
-      setData(null)
     }
   }
   
   const onchangeInput = (text) => {
-    onChangeText(text);
-    dispatch(connexionOn())
+    dispatch(connexionOn(text))
   }
-
+  const { text ,isLoading,data } = useSelector(state => state.SearchBarReducer);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground source={image} resizeMode="cover" style={styles.imageBackground}>
@@ -40,7 +33,7 @@ export default function Search({ navigation }) {
           <GoBack navigation={navigation} />
           <View style={styles.containerSearch}>
             <SearchBarScreen text={text} onchangeInput={(text) => onchangeInput(text)} getFoodDetail={(text) => getFoodDetail(text)} />
-            <ProductList loading={loading} data={data} navigation={navigation} />
+            <ProductList loading={isLoading} data={data} navigation={navigation} />
           </View>
         </ScrollView>
       </ImageBackground>
