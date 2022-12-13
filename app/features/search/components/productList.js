@@ -3,7 +3,7 @@ import * as React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native';
 import styles from '../containers/styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Loader from 'react-native-three-dots-loader'
+import { ActivityIndicator } from 'react-native-paper';
 
 
 export default ProductList = ({ loading, data, navigation }) => {
@@ -20,7 +20,7 @@ export default ProductList = ({ loading, data, navigation }) => {
                     <Text style={styles.nameOfProduct}>{`${data.nom_francais}`}</Text>
                 </TouchableOpacity>
             ))}
-            {loading == true && <Loader />}
+            {loading == true && <ActivityIndicator color={"green"}/>}
             {loading == false && data != null && data.length == 0 && <View><Text style={styles.sizeNotFound}>Aucun résultat trouvé</Text></View>}
         </View>
     )
