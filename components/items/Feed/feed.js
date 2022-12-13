@@ -6,6 +6,7 @@ import axios from 'axios';
 import { setlastName, setisConnect, setfirstName, setEmail } from '../../../redux/action';
 import { BASE_URL } from '../constants/base_URL';
 import image from "../assets/bg.png"
+import GoBack from '../../../ComponentsGeneral/goBack';
 
 export default function Feed({ navigation }) {
   const { isconnect, firstname, lastname, email } = useSelector(state => state.userReducer);
@@ -23,13 +24,6 @@ export default function Feed({ navigation }) {
       <ScrollView style={styles.scrollView}>
 
         <View style={styles.viewBtn}>
-          <TouchableOpacity style={styles.touchGoHome} onPress={() => navigation.navigate('Home')}>
-            <Image
-              source={require('../assets/icons/MenuIcon.png')}
-              style={{ width: 24, height: 24 }}
-            />
-            <Text style={styles.labelBtn}>Home</Text>
-          </TouchableOpacity>
           {isconnect && <TouchableOpacity style={styles.touchlogout} onPress={() => logout()}>
             <Text style={styles.labelBtn}>😴 Deconnexion</Text>
           </TouchableOpacity>}
@@ -124,7 +118,8 @@ const styles = StyleSheet.create({
   },
   viewBtn: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginBottom:50
   },
   touchGoHome:{
 

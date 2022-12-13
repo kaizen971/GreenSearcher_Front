@@ -1,4 +1,6 @@
 import { SET_USER_FIRSTNAME, SET_USER_LASTNAME, SET_USER_EMAIL,SET_USER_ISCONNECT } from './action';
+import createReducer from '../app/lib/createReducer';
+
 
 const initialState = {
     isconnect: false,
@@ -7,19 +9,29 @@ const initialState = {
     email: '',
 }
 
-function userReducer(state = initialState, action) {
-    switch (action.type) {
-        case SET_USER_FIRSTNAME:
-            return { ...state, firstname: action.payload };
-        case SET_USER_LASTNAME:
-                return { ...state, lastname: action.payload };
-        case SET_USER_EMAIL:
-            return { ...state, email: action.payload };
-        case SET_USER_ISCONNECT:
-            return { ...state, isconnect: action.payload };
-        default:
-            return state;
+export const userReducer = createReducer(initialState, { 
+    [SET_USER_FIRSTNAME](state, action) {
+        return {
+            ...state, 
+            firstname: action.payload
+        };
+    },
+    [SET_USER_LASTNAME](state, action) {
+        return {
+            ...state, 
+            lastname: action.payload
+        };
+    },
+    [SET_USER_EMAIL](state, action) {
+        return {
+            ...state, 
+            email: action.payload 
+        };
+    },
+    [SET_USER_ISCONNECT](state, action) {
+        return {
+            ...state, 
+            isconnect: action.payload
+        };
     }
-}
-
-export default userReducer;
+});

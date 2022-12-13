@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Loader from 'react-native-three-dots-loader'
 import { BASE_URL } from '../constants/base_URL.js';
 import image from "../assets/bg.png"
+import GoBack from '../../../ComponentsGeneral/goBack/index.js';
 
 export default function Search({ navigation }) {
     const [text, onChangeText] = React.useState("");
@@ -30,14 +31,8 @@ export default function Search({ navigation }) {
       <SafeAreaView style={{flex:1}}>
       <ImageBackground source={image} resizeMode="cover" style={{flex: 1,justifyContent: "center"}}>
       <ScrollView nestedScrollEnabled={true} style={{ width: "100%" }}>
-      <TouchableOpacity style={{flexDirection:"row",marginTop:20,marginLeft:10}} onPress={() => navigation.navigate('Feed')}>
-      <Image 
-        source={require('../assets/icons/MenuIcon.png')}  
-        style={{width: 24, height: 24 }}
-      />
-      <Text style={{fontWeight:"bold",marginLeft:8}}>Retour</Text>
-      </TouchableOpacity>
-      <View style={{flex:1,flexDirection:"column",marginTop:20}}>
+      <GoBack navigation={navigation}/>
+      <View style={{flex:1,flexDirection:"column",marginTop:60}}>
       <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"center",marginHorizontal:10}}>
       <TextInput
         style={styles.input}
