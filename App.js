@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './components/items/Home/Home.js';
 import FeedScreen from './components/items/Feed/feed.js'
 import ProductDetail from './components/items/ProductDetail/ProductDetail.js';
-import ConnexionScreen from './components/items/Connexion/ConnexionScreen.js'
 import { Provider } from 'react-redux';
 import FavorisDetail from './components/items/FavorisDetail/FavorisDetail.js';
 import InfoDetail from './components/items/Infos/InfosDetail.js';
@@ -13,6 +12,8 @@ import ScanFood from './components/items/ScanFood/ScanFood.js';
 import configureStore from './store/index.js';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import Search from './app/features/search/containers/index.js';
+import ConnexionScreen from './app/features/connexionOrRegister/containers/index.js';
+
 
 const Stack = createNativeStackNavigator();
 const { persistor, store } = configureStore();

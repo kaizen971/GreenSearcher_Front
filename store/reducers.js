@@ -3,7 +3,7 @@
  */
 
 import {userReducer} from "../redux/reducers";
-import {ConnexionReducer} from '../components/items/Connexion/Connexionredux/reducer';
+import {ConnexionReducer} from  "../app/features/connexionOrRegister/reducers";
 import { SearchBarReducer } from "../app/features/search/reducers";
 
 

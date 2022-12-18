@@ -67,15 +67,17 @@ export default function ScanFood({ navigation }) {
       case "en:palm-oil":
         return "Contient de l'huile de palme";
       case "en:palm-oil-free":
-        return "Contient ne contient pas d'huile d'huile de palme";
+        return "";
       case "en:non-vegan":
-        return "Ingrédient non vegan";
+        return "Ingrédients non vegan";
       case 'en:vegetarian-status-unknown':
-        return "Ingrédient inconnus pour les végétariens"
+        return "Ingrédients inconnus pour les végétariens"
       case 'en:vegan-status-unknown':
-        return "Ingrédient inconnus pour les végans"
+        return "Ingrédients inconnus pour les végans"
       case 'en:non-vegetarian':
-        return "Ingrédient non végétarien"
+        return "Ingrédients non végétarien"
+      case 'en:palm-oil-content-unknown':
+          return ""
       default:
         return (name)
     }
@@ -111,7 +113,6 @@ export default function ScanFood({ navigation }) {
 
                       <View
                         style={styles.scanBar}
-                        direction="alternate-reverse"
                         iterationCount="infinite"
                         duration={1700}
                         easing="linear"
@@ -145,12 +146,15 @@ export default function ScanFood({ navigation }) {
               style={{ width: 200, height: 200, justifyContent: "center", alignItems: "center", alignSelf: 'center', borderRadius: 20 }}
               resizeMode="contain"
             />
+            
             {response.product.ingredients_analysis_tags != null && response.product.ingredients_analysis_tags.length > 0 &&
               <View style={{ borderWidth: 1, padding: 10, justifyContent: "center", marginVertical: 30, borderRadius: 20 }}>
+                <Text style={{ color: '81c684', textAlign: "center", fontWeight: "bold" }}>{"Ce produit contient des:"}</Text>
                 {response.product.ingredients_analysis_tags.map((item) => {
                   return (
                     <View >
-                      <Text style={{ color: 'red', textAlign: "center", fontWeight: "bold" }}>{switchIngredientAnalyse(item)}</Text>
+
+                      <Text style={{ color: '#81c684', textAlign: "center", fontWeight: "bold" }}>{switchIngredientAnalyse(item)}</Text>
                     </View>)
                 })}
               </View>

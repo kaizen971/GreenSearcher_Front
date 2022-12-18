@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   btnFeed:{
 
-    flex: 1, height: 130, margin: 20, borderWidth: 1, borderRadius: 20, padding: 10, alignItems: "center", justifyContent: "center", shadowColor: "black", shadowOffset: { width: 10, height: 10 }, shadowRadius: 0.7, elevation: 20 
+    flex: 1, height: 130, margin: 20, borderWidth: 1, borderRadius: 20, padding: 10, alignItems: "center", justifyContent: "center", shadowColor: "black", shadowOffset: { width: 2, height: 2 }, shadowRadius: 0.7, elevation: 8 
 
   },
   imagestyle:{

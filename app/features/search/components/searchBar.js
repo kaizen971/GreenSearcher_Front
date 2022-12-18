@@ -15,14 +15,6 @@ export default SearchBarScreen = ({ text, onchangeInput, getFoodDetail }) => {
         autoFocus={true}
         placeholder={"Rechercher un plat ici"}
       />
-      <TouchableOpacity style={styles.buttonSearch} onPress={() => { getFoodDetail(text) }}>
-        <Text style={styles.labelSearch}>Rechercher</Text>
-        <Ionicons
-          name="md-search"
-          color="black"
-          size={15}
-        />
-      </TouchableOpacity>
     </View>
   )
 }

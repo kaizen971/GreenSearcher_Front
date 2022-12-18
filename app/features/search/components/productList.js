@@ -9,7 +9,7 @@ import { ActivityIndicator } from 'react-native-paper';
 export default ProductList = ({ loading, data, navigation }) => {
     return (
         <View style={styles.containerProductList}>
-            {loading == false && data != null && data.map((data) => (
+            { data != null && data.map((data) => (
                 <TouchableOpacity key={data.nom_francais} className="data" style={styles.touchableLabelProduct} onPress={() => { navigation.navigate("ProductDetail", { data: data }) }}>
                     <Ionicons
                         name="md-search"
@@ -20,8 +20,7 @@ export default ProductList = ({ loading, data, navigation }) => {
                     <Text style={styles.nameOfProduct}>{`${data.nom_francais}`}</Text>
                 </TouchableOpacity>
             ))}
-            {loading == true && <ActivityIndicator color={"green"}/>}
-            {loading == false && data != null && data.length == 0 && <View><Text style={styles.sizeNotFound}>Aucun résultat trouvé</Text></View>}
+            { data != null && data.length == 0 && <View><Text style={styles.sizeNotFound}>Aucun résultat trouvé</Text></View>}
         </View>
     )
 }
